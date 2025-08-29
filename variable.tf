@@ -17,3 +17,4 @@ variable "redis"{}
 variable "rabbitmq"{}
 variable "zone_id"{}
 variable "bastion_node"{}
+variable "instance_type" {}
