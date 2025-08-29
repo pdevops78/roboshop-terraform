@@ -1,7 +1,7 @@
 resource "aws_docdb_cluster" "docdb" {
   cluster_identifier      = "${var.cluster_identifier}-${var.env}"
-  engine                  = "docdb"
-  engine_version          = "4.0.0"
+  engine                  = var.engine
+  engine_version          = var.engine_version
   master_username         = var.docdb_username
   master_password         = var.docdb_password
   backup_retention_period = 5
@@ -22,10 +22,15 @@ resource "aws_docdb_cluster_parameter_group" "pg" {
 
 resource "aws_docdb_subnet_group" "subnet_group" {
   name       = "${var.cluster_identifier}-${var.env}"
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.subnet_id
   tags = {
     Name = "${var.cluster_identifier}-${var.env}"
   }
+}
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  identifier         = "${var.cluster_identifier}-${var.env}"
+  cluster_identifier = aws_docdb_cluster.docdb.id
+  instance_class     = "db.t3.medium"
 }
 resource "aws_security_group" "sg" {
   name                 =    "${var.env}-custom-vpc-sg"

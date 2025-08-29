@@ -1,4 +1,5 @@
-env                  = "dev"
+env                          = "dev"
+instance_type                = "t2.micro"
 zone_id                      = "Z08520602FC482APPVUI7"
 vault_token                  = "hvs.T8WnPWmYmGZkPYlGAHXVmebk"
 vpc_cidr_block               = "10.0.0.0/24"
@@ -17,4 +18,6 @@ certificate_arn              = "arn:aws:acm:us-east-1:041445559784:certificate/1
 ssl_policy                   = "ELBSecurityPolicy-TLS13-1-3-2021-06"
 kms_key_id                    = "arn:aws:kms:us-east-1:041445559784:key/7d44c002-f50e-4632-ba6f-84b7b512987f"
 volume_type                  = "gp3"
+zone_id                      = "Z08520602FC482APPVUI7"
+
 
