@@ -32,7 +32,7 @@ module "rds" {
   family                = each.value["family"]
   instance_class        = each.value["instance_class"]
   kms_key_id            = var.kms_key_id
-  server_app_port       = module.VPC.backend
+  server_app_ports      = module.VPC.backend
   subnet_id             = var.dbServers
   vpc_id                = module.VPC.vpc_id
   multi_az              = false
@@ -46,7 +46,7 @@ module "redis"{
   cluster_id       = each.value["cluster_id"]
   engine           = each.value["engine"]
   engine_version   = each.value["engine_version"]
-  server_app_port  = module.VPC.backend
+  server_app_ports  = module.VPC.backend
   env              = var.env
   node_type        = each.value["node_type"]
   num_cache_nodes  = each.value["num_cache_nodes"]
