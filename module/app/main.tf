@@ -11,16 +11,16 @@ resource "aws_instance" "component" {
       }
     }
     tags = {
-    Name = "${var.app_components[count.index+1]}-${var.env}"
+    Name = "${var.app_components[count.index]}-${var.env}"
    }
  }
 
 resource "aws_route53_record" "server_route" {
   count              = length(var.app_components)
-  name               = "${var.app_components[count.index+1]}-${var.env}.pdevops78.online"
+  name               = "${var.app_components[count.index]}-${var.env}.pdevops78.online"
   type               = "A"
   zone_id            = var.zone_id
-  records            = [aws_instance.component[count.index+1].private_ip]
+  records            = [aws_instance.component[count.index].private_ip]
   ttl                = 30
 }
 
