@@ -18,3 +18,5 @@ variable "rabbitmq"{}
 variable "zone_id"{}
 variable "bastion_node"{}
 variable "instance_type" {}
+variable "kms_key_id"{}
+variable "volume_type"{}

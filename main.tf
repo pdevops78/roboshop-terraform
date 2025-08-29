@@ -62,6 +62,8 @@ module "rabbitmq"{
   bastion_node    = var.bastion_node
   vpc_id           = module.VPC.vpc_id
   subnet_id        = var.dbServers
+  kms_key_id       = var.kms_key_id
+  volume_type      = var.volume_type
 }
 module "VPC"{
   source                       = "./module/VPC"

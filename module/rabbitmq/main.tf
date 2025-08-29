@@ -11,6 +11,11 @@ resource "aws_instance" "component" {
       spot_instance_type             = "persistent"
     }
   }
+  root_block_device {
+    encrypted    = true
+    kms_key_id   = var.kms_key_id
+    volume_type  = var.volume_type
+  }
   tags = {
     Name = "${var.component}-${var.env}"
   }
