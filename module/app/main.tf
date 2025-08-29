@@ -16,6 +16,7 @@ resource "aws_instance" "component" {
  }
 
 resource "aws_route53_record" "server_route" {
+  count              = length(var.app_components)
   name               = "${var.app_components[count.index+1]}-${var.env}.pdevops78.online"
   type               = "A"
   zone_id            = var.zone_id
