@@ -33,7 +33,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   instance_class     = var.instance_class
 }
 resource "aws_security_group" "sg" {
-  name                 =    "${var.env}-custom-vpc-sg"
+  name                 =    "${var.cluster_identifier}-${var.env}"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
    ingress {
