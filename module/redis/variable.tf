@@ -6,3 +6,5 @@ variable "num_cache_nodes"{}
 variable "env" {}
 variable "family"{}
 variable "subnet_id"{}
+variable "vpc_id"{}
+variable "server_app_port" {}

@@ -31,7 +31,7 @@ module "rds" {
   env                   = var.env
   family                = each.value["family"]
   instance_class        = each.value["instance_class"]
-  kms_key_id            = each.value["kms_key_id"]
+  kms_key_id            = var.kms_key_id
   server_app_port       = module.VPC.backend
   subnet_id             = var.dbServers
   vpc_id                = module.VPC.vpc_id
@@ -46,11 +46,13 @@ module "redis"{
   cluster_id       = each.value["cluster_id"]
   engine           = each.value["engine"]
   engine_version   = each.value["engine_version"]
+  server_app_port  = module.VPC.backend
   env              = var.env
   node_type        = each.value["node_type"]
   num_cache_nodes  = each.value["num_cache_nodes"]
   family           = each.value["family"]
-  subnet_id        = module.VPC.db
+  subnet_id        = var.dbServers
+  vpc_id           = module.VPC.vpc_id
 }
 module "rabbitmq"{
   source           = "./module/rabbitmq"
