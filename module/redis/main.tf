@@ -27,8 +27,8 @@ resource "aws_elasticache_subnet_group" "sg" {
 }
 
 resource "aws_security_group" "sg" {
-  name                 =  "redis"
-  description          =  "redis"
+  name                 =  "${var.cluster_id}-${var.env}-sg"
+  description          =  "${var.cluster_id}-${var.env}-sg"
   vpc_id               =  var.vpc_id
   ingress {
     from_port        =     6379
