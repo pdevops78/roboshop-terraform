@@ -5,41 +5,41 @@
 #   env              =   var.env
 #   zone_id          =   var.zone_id
 # }
-module "docdb" {
-  for_each            =    var.docdb
-  source             =    "./module/docdb"
-  cluster_identifier =    each.value["cluster_identifier"]
-  engine             =    each.value["engine"]
-  engine_version     =    each.value["engine_version"]
-  family             =    each.value["family"]
-  instance_class      =   each.value["instance_class"]
-  subnet_id          =    module.VPC.backend
-  server_app_ports   =    var.dbServers
-  env                =    each.value["env"]
-  docdb_username     =    "docdb"
-  docdb_password     =    "roboshop123"
-  kms_key_id         =    each.value["kms_key_id"]
-  vpc_id             =    module.VPC.vpc_id
-}
-# module "rds" {
-#   source                = "./module/rds"
-#   for_each              = var.rds
-#   allocated_storage     = each.value["allocated_storage"]
-#   component             = each.value["db_name"]
-#   engine                = each.value["engine"]
-#   engine_version        = each.value["engine_version"]
-#   env                   = var.env
-#   family                = each.value["family"]
-#   instance_class        = each.value["instance_class"]
-#   kms_key_id            = var.kms_key_id
-#   server_app_ports      = var.dbServers
-#   subnet_id             = module.VPC.backend
-#   vpc_id                = module.VPC.vpc_id
-#   multi_az              = false
-#   publicly_accessible   = false
-#   skip_final_snapshot   = true
-#   storage_type          = true
+# module "docdb" {
+#   for_each            =    var.docdb
+#   source             =    "./module/docdb"
+#   cluster_identifier =    each.value["cluster_identifier"]
+#   engine             =    each.value["engine"]
+#   engine_version     =    each.value["engine_version"]
+#   family             =    each.value["family"]
+#   instance_class      =   each.value["instance_class"]
+#   subnet_id          =    module.VPC.backend
+#   server_app_ports   =    var.dbServers
+#   env                =    each.value["env"]
+#   docdb_username     =    "docdb"
+#   docdb_password     =    "roboshop123"
+#   kms_key_id         =    each.value["kms_key_id"]
+#   vpc_id             =    module.VPC.vpc_id
 # }
+module "rds" {
+  source                = "./module/rds"
+  for_each              = var.rds
+  allocated_storage     = each.value["allocated_storage"]
+  component             = each.value["db_name"]
+  engine                = each.value["engine"]
+  engine_version        = each.value["engine_version"]
+  env                   = var.env
+  family                = each.value["family"]
+  instance_class        = each.value["instance_class"]
+  kms_key_id            = var.kms_key_id
+  server_app_ports      = var.dbServers
+  subnet_id             = module.VPC.backend
+  vpc_id                = module.VPC.vpc_id
+  multi_az              = false
+  publicly_accessible   = false
+  skip_final_snapshot   = true
+  storage_type          = true
+}
 # module "redis"{
 #   source           = "./module/redis"
 #   for_each         = var.redis
