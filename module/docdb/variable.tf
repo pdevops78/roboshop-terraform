@@ -9,6 +9,7 @@ variable  "subnet_id"{}
 variable  "env"{}
 variable "kms_key_id"{}
 variable "vpc_id"{}
+variable "instance_class"{}
 
 
 

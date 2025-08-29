@@ -30,7 +30,7 @@ resource "aws_docdb_subnet_group" "subnet_group" {
 resource "aws_docdb_cluster_instance" "cluster_instances" {
   identifier         = "${var.cluster_identifier}-${var.env}"
   cluster_identifier = aws_docdb_cluster.docdb.id
-  instance_class     = "db.t3.medium"
+  instance_class     = var.instance_class
 }
 resource "aws_security_group" "sg" {
   name                 =    "${var.env}-custom-vpc-sg"
