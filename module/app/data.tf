@@ -11,3 +11,7 @@ data "aws_ami" "ami" {
 data "aws_security_group" "sg" {
   name = "allow-all"
 }
+
+
+#  centos  ----->   Centos-8-DevOps-Practice
+#  AMI Location  ----->  973714476881/Centos-8-DevOps-Practice
