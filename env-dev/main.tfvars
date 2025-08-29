@@ -16,8 +16,47 @@ availability_zone            = ["us-east-1a","us-east-1b"]
 bastion_node                 = ["172.31.28.3/32"]
 certificate_arn              = "arn:aws:acm:us-east-1:041445559784:certificate/15f6ea3c-b316-4933-a3b7-3bc71ce13c90"
 ssl_policy                   = "ELBSecurityPolicy-TLS13-1-3-2021-06"
-kms_key_id                    = "arn:aws:kms:us-east-1:041445559784:key/7d44c002-f50e-4632-ba6f-84b7b512987f"
+kms_key_id                    = "arn:aws:kms:us-east-1:041445559784:key/afa24bbe-ec87-4e41-b04f-0fc44209e137"
 volume_type                  = "gp3"
 
 
+docdb = {
+  main = {
+    cluster_identifier      =  "docdb-cluster"
+    engine                  =  "docdb"
+    engine_version          =  "4.0.0"
+    family                  =  "docdb4.0"
+    instance_class          =  "db.t3.medium"
+    env                     =  "dev"
+    kms_key_id              =  "arn:aws:kms:us-east-1:041445559784:key/afa24bbe-ec87-4e41-b04f-0fc44209e137"
+  }
+}
 
+rabbitmq = {
+  main = {
+    component     = "rabbitmq"
+    instance_type = "t3.micro"
+  }
+}
+
+rds = {
+  main = {
+    db_name              =  "mysql"
+    instance_class       =  "db.m5.large"
+    allocated_storage    =  20
+    engine               =  "MySQL"
+    engine_version       =  "5.7.44"
+    family               =  "mysql5.7"
+  }
+}
+
+redis = {
+  main = {
+    cluster_id      = "redis"
+    engine          = "Redis"
+    engine_version  = "6.2"
+    node_type       = "cache.t4g.micro"
+    num_cache_nodes = 1
+    family          = "redis6.x"
+  }
+}
