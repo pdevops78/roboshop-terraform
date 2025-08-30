@@ -2,7 +2,7 @@ resource "aws_instance" "component" {
   count = length(var.app_components)
   ami = data.aws_ami.ami.image_id
   instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = [aws_security_group.sg[count.index].id]
   subnet_id  = var.subnet_id[0]
   instance_market_options {
       market_type = "spot"
@@ -26,8 +26,7 @@ resource "aws_route53_record" "server_route" {
 }
 
 resource "aws_security_group" "sg" {
-  count                 = length(var.app_components)
-  name                 =    "${var.app_components[count.index]}-${var.env}"
+  name                 =    "${var.app_components}-${var.env}"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
   ingress {
