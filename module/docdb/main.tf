@@ -22,13 +22,14 @@ resource "aws_docdb_cluster_parameter_group" "pg" {
 
 resource "aws_docdb_subnet_group" "subnet_group" {
   name       = "${var.cluster_identifier}-${var.env}"
-  subnet_ids = var.subnet_id
+  subnet_ids = var.subnet_ids
   tags = {
     Name = "${var.cluster_identifier}-${var.env}-subnetgroup"
   }
 }
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier         = "${var.cluster_identifier}-${var.env}"
+  count              = var.instance_count
+  identifier         = "${var.cluster_identifier}-cluser-${count.index}"
   cluster_identifier = aws_docdb_cluster.docdb.id
   instance_class     = var.instance_class
 }
