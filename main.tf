@@ -1,29 +1,29 @@
-# module  "components"{
-#   source           =   "./module/app"
-#   app_components   =   var.components
-#   instance_type    =   var.instance_type
-#   env              =   var.env
-#   zone_id          =   var.zone_id
-#   subnet_id        =   module.VPC.backend
-#   vpc_id           = module.VPC.vpc_id
-# }
-# module "docdb" {
-#   for_each            =    var.docdb
-#   source             =    "./module/docdb"
-#   cluster_identifier =    each.value["cluster_identifier"]
-#   engine             =    each.value["engine"]
-#   engine_version     =    each.value["engine_version"]
-#   family             =    each.value["family"]
-#   instance_class      =   each.value["instance_class"]
-#   subnet_ids          =    module.VPC.backend
-#   server_app_ports   =    var.dbServers
-#   env                =    each.value["env"]
-#   docdb_username     =    "docdb"
-#   docdb_password     =    "roboshop123"
-#   kms_key_id         =    each.value["kms_key_id"]
-#   vpc_id             =    module.VPC.vpc_id
-#   instance_count     =   each.value["instance_count"]
-# }
+module  "components"{
+  source           =   "./module/app"
+  app_components   =   var.components
+  instance_type    =   var.instance_type
+  env              =   var.env
+  zone_id          =   var.zone_id
+  subnet_id        =   module.VPC.backend
+  vpc_id           = module.VPC.vpc_id
+}
+module "docdb" {
+  for_each            =    var.docdb
+  source             =    "./module/docdb"
+  cluster_identifier =    each.value["cluster_identifier"]
+  engine             =    each.value["engine"]
+  engine_version     =    each.value["engine_version"]
+  family             =    each.value["family"]
+  instance_class      =   each.value["instance_class"]
+  subnet_ids          =    module.VPC.backend
+  server_app_ports   =    var.dbServers
+  env                =    each.value["env"]
+  docdb_username     =    "docdb"
+  docdb_password     =    "roboshop123"
+  kms_key_id         =    each.value["kms_key_id"]
+  vpc_id             =    module.VPC.vpc_id
+  instance_count     =   each.value["instance_count"]
+}
 # module "rds" {
 #   source                = "./module/rds"
 #   for_each              = var.rds

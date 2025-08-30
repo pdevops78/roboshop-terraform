@@ -1,6 +1,6 @@
 variable "components"{
-default = ["frontend"]
-#   ,"catalogue","user","cart","shipping","payment","dispatch"
+default = ["frontend","catalogue","user","cart","shipping","payment"]
+#   ,"dispatch"
 }
 variable  "docdb"{}
 variable  "env"{}
