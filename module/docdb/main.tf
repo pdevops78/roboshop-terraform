@@ -16,12 +16,12 @@ resource "aws_docdb_cluster" "docdb" {
 
 resource "aws_docdb_cluster_parameter_group" "pg" {
   family      = var.family
-  name        = "${var.cluster_identifier}-${var.env}--pg"
+  name        = "${var.cluster_identifier}-${var.env}-pg"
   description = "docdb cluster parameter group"
 }
 
 resource "aws_docdb_subnet_group" "subnet_group" {
-  name       = "${var.cluster_identifier}-${var.env}--sg"
+  name       = "${var.cluster_identifier}-${var.env}-sg"
   subnet_ids = var.subnet_ids
   tags = {
     Name = "${var.cluster_identifier}-${var.env}-subnetgroup"
