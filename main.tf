@@ -5,6 +5,7 @@ module  "components"{
   env              =   var.env
   zone_id          =   var.zone_id
   subnet_id        =   module.VPC.backend
+  vpc_id           = module.VPC.vpc_id
 }
 module "docdb" {
   for_each            =    var.docdb
