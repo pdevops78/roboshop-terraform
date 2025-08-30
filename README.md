@@ -26,3 +26,7 @@ mongosh docdb-cluster-dev.cluster-cvkemucwmc9p.us-east-1.docdb.amazonaws.com:270
 Connect to this cluster with an application
 ============================================
 mongodb://docdb:<insertYourPassword>@docdb-cluster-dev.cluster-cvkemucwmc9p.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+
+
+redis:  arn:aws:elasticache:us-east-1:041445559784:cluster:redis-dev
+rds: mysql-dev.cvkemucwmc9p.us-east-1.rds.amazonaws.com
