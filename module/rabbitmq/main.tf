@@ -20,7 +20,24 @@ resource "aws_instance" "component" {
     Name = "${var.component}-${var.env}"
   }
 }
+resource "null_resource" "rabbitmq-setup" {
+  connection {
+    host     = aws_instance.component.private_ip
+    user     = "ec2-user"
+    password = "DevOps321"
+    type     = "ssh"
+  }
 
+  provisioner "file" {
+    source      = "${path.module}/rabbitmq.sh"
+    destination = "/tmp/rabbitmq.sh"
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo bash /tmp/rabbitmq.sh",
+    ]
+  }
+}
 resource "aws_route53_record" "server_route" {
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "A"
