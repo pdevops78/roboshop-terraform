@@ -156,23 +156,22 @@ resource "aws_route_table" "db" {
     Name = "${var.env}-db-route-${count.index+1}"
   }
 }
-# #  associate db subnets with nat
+#  add default vpc cidr block to route_table
+resource "aws_route" "db_route" {
+  count                     = length(var.dbServers)
+  route_table_id            = aws_route_table.db[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+}
+#
+#  associate frontend subnets with nat
 resource "aws_route" "db_nat" {
   count                     = length(var.dbServers)
   route_table_id            = aws_route_table.db[count.index].id
   destination_cidr_block    = "0.0.0.0/0"
   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
 }
-#
-# # #  add destination vpc cidr block to route in route table
-resource "aws_route" "db_route" {
-  count                     = length(var.dbServers)
-  route_table_id            = aws_route_table.db[count.index].id
-  destination_cidr_block    = var.default_vpc_cidr_block
-  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-}
-#
-# #  associate subnets with route table id
+#  associate subnets with route table id
 resource "aws_route_table_association" "db" {
   count          = length(var.dbServers)
   subnet_id      = aws_subnet.db_subnets[count.index].id
