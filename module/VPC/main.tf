@@ -108,6 +108,13 @@ resource "aws_route_table" "backend" {
     Name = "${var.env}-backend-route-${count.index+1}"
   }
 }
+#  add default vpc cidr block to route_table
+resource "aws_route" "backend_route" {
+  count                     = length(var.backendServers)
+  route_table_id            = aws_route_table.backend[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+}
 #
 # #  associate backend subnets with nat
 resource "aws_route" "backend_nat" {
@@ -117,13 +124,7 @@ resource "aws_route" "backend_nat" {
   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
 }
 # #
-# # #  add destination vpc cidr block to route in route table
-resource "aws_route" "backend_route" {
-  count                     = length(var.backendServers)
-  route_table_id            = aws_route_table.backend[count.index].id
-  destination_cidr_block    = var.default_vpc_cidr_block
-  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-}
+
 #
 # #  associate subnets with route table id
 resource "aws_route_table_association" "backend" {
