@@ -90,93 +90,93 @@ resource "aws_route_table_association" "frontend" {
 # ************************************** backend *****************************************************
 
 #  create backend subnets / servers
-# resource "aws_subnet" "backend_subnets" {
-#   count       = length(var.backendServers)
-#   vpc_id      = aws_vpc.vpc.id
-#   cidr_block  = var.backendServers[count.index]
-#   availability_zone = var.availability_zone[count.index]
-#   tags = {
-#     Name = "${var.env}-backend-${count.index+1}"
-#   }
-# }
+resource "aws_subnet" "backend_subnets" {
+  count       = length(var.backendServers)
+  vpc_id      = aws_vpc.vpc.id
+  cidr_block  = var.backendServers[count.index]
+  availability_zone = var.availability_zone[count.index]
+  tags = {
+    Name = "${var.env}-backend-${count.index+1}"
+  }
+}
 #
 # # #  create Route table for backend
-# resource "aws_route_table" "backend" {
-#   count   = length(var.backendServers)
-#   vpc_id = aws_vpc.vpc.id
-#   tags = {
-#     Name = "${var.env}-backend-route-${count.index+1}"
-#   }
-# }
+resource "aws_route_table" "backend" {
+  count   = length(var.backendServers)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-backend-route-${count.index+1}"
+  }
+}
 #
 # #  associate backend subnets with nat
-# resource "aws_route" "backend_nat" {
-#   count                     = length(var.backendServers)
-#   route_table_id            = aws_route_table.backend[count.index].id
-#   destination_cidr_block    = "0.0.0.0/0"
-#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-# }
+resource "aws_route" "backend_nat" {
+  count                     = length(var.backendServers)
+  route_table_id            = aws_route_table.backend[count.index].id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+}
 # #
 # # #  add destination vpc cidr block to route in route table
-# resource "aws_route" "backend_route" {
-#   count                     = length(var.backendServers)
-#   route_table_id            = aws_route_table.backend[count.index].id
-#   destination_cidr_block    = var.default_vpc_cidr_block
-#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-# }
+resource "aws_route" "backend_route" {
+  count                     = length(var.backendServers)
+  route_table_id            = aws_route_table.backend[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+}
 #
 # #  associate subnets with route table id
-# resource "aws_route_table_association" "backend" {
-#   count          = length(var.backendServers)
-#   subnet_id      = aws_subnet.backend_subnets[count.index].id
-#   route_table_id = aws_route_table.backend[count.index].id
-# }
+resource "aws_route_table_association" "backend" {
+  count          = length(var.backendServers)
+  subnet_id      = aws_subnet.backend_subnets[count.index].id
+  route_table_id = aws_route_table.backend[count.index].id
+}
 #
 # # # ******************************************backend end ********************************************
 #
 # # ***************************************** db ****************************************************
 #
 # # create db subnets / servers
-# resource "aws_subnet" "db_subnets" {
-#   count       = length(var.dbServers)
-#   vpc_id      = aws_vpc.vpc.id
-#   cidr_block  = var.dbServers[count.index]
-#   availability_zone = var.availability_zone[count.index]
-#   tags = {
-#     Name = "${var.env}-db-${count.index+1}"
-#   }
-# }
+resource "aws_subnet" "db_subnets" {
+  count       = length(var.dbServers)
+  vpc_id      = aws_vpc.vpc.id
+  cidr_block  = var.dbServers[count.index]
+  availability_zone = var.availability_zone[count.index]
+  tags = {
+    Name = "${var.env}-db-${count.index+1}"
+  }
+}
 #
 # # create Route table for db
-# resource "aws_route_table" "db" {
-#   count   = length(var.dbServers)
-#   vpc_id = aws_vpc.vpc.id
-#   tags = {
-#     Name = "${var.env}-db-route-${count.index+1}"
-#   }
-# }
+resource "aws_route_table" "db" {
+  count   = length(var.dbServers)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-db-route-${count.index+1}"
+  }
+}
 # #  associate db subnets with nat
-# resource "aws_route" "db_nat" {
-#   count                     = length(var.dbServers)
-#   route_table_id            = aws_route_table.db[count.index].id
-#   destination_cidr_block    = "0.0.0.0/0"
-#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-# }
+resource "aws_route" "db_nat" {
+  count                     = length(var.dbServers)
+  route_table_id            = aws_route_table.db[count.index].id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+}
 #
 # # #  add destination vpc cidr block to route in route table
-# resource "aws_route" "db_route" {
-#   count                     = length(var.dbServers)
-#   route_table_id            = aws_route_table.db[count.index].id
-#   destination_cidr_block    = var.default_vpc_cidr_block
-#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-# }
+resource "aws_route" "db_route" {
+  count                     = length(var.dbServers)
+  route_table_id            = aws_route_table.db[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+}
 #
 # #  associate subnets with route table id
-# resource "aws_route_table_association" "db" {
-#   count          = length(var.dbServers)
-#   subnet_id      = aws_subnet.db_subnets[count.index].id
-#   route_table_id = aws_route_table.db[count.index].id
-# }
+resource "aws_route_table_association" "db" {
+  count          = length(var.dbServers)
+  subnet_id      = aws_subnet.db_subnets[count.index].id
+  route_table_id = aws_route_table.db[count.index].id
+}
 # #  **************************************** db end *************************************************
 #
 # # ***************************************** public *************************************************
