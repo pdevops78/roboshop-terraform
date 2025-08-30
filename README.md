@@ -15,6 +15,9 @@ rabbitmq ---> normal ec2
 
 docdb:
 ------
+DOCUMENTDB == 'true'
+mongodb://docdb:roboshop123@mongodb:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+
 Download the Amazon DocumentDB Certificate Authority (CA) certificate required to authenticate to your cluster
 ==============================================================================================================
 wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
