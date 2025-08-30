@@ -43,20 +43,20 @@ module "rds" {
   skip_final_snapshot   = true
   storage_type          = true
 }
-# # module "redis"{
-# #   source           = "./module/redis"
-# #   for_each         = var.redis
-# #   cluster_id       = each.value["cluster_id"]
-# #   engine           = each.value["engine"]
-# #   engine_version   = each.value["engine_version"]
-# #   server_app_ports  = var.dbServers
-# #   env              = var.env
-# #   node_type        = each.value["node_type"]
-# #   num_cache_nodes  = each.value["num_cache_nodes"]
-# #   family           = each.value["family"]
-# #   subnet_id        = module.VPC.backend
-# #   vpc_id           = module.VPC.vpc_id
-# # }
+module "redis"{
+  source           = "./module/redis"
+  for_each         = var.redis
+  cluster_id       = each.value["cluster_id"]
+  engine           = each.value["engine"]
+  engine_version   = each.value["engine_version"]
+  server_app_ports  = var.dbServers
+  env              = var.env
+  node_type        = each.value["node_type"]
+  num_cache_nodes  = each.value["num_cache_nodes"]
+  family           = each.value["family"]
+  subnet_id        = module.VPC.backend
+  vpc_id           = module.VPC.vpc_id
+}
 # # module "rabbitmq"{
 # #   source           = "./module/rabbitmq"
 # #   for_each         = var.rabbitmq
