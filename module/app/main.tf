@@ -26,7 +26,8 @@ resource "aws_route53_record" "server_route" {
 }
 
 resource "aws_security_group" "sg" {
-  name                 =    "${var.app_components}-${var.env}"
+  count                 = length(var.app_components)
+  name                 =    "${var.app_components[count.index]}-${var.env}"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
   ingress {
