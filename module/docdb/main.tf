@@ -24,7 +24,7 @@ resource "aws_docdb_subnet_group" "subnet_group" {
   name       = "${var.cluster_identifier}-${var.env}"
   subnet_ids = var.subnet_id
   tags = {
-    Name = "${var.cluster_identifier}-${var.env}"
+    Name = "${var.cluster_identifier}-${var.env}-subnetgroup"
   }
 }
 resource "aws_docdb_cluster_instance" "cluster_instances" {
