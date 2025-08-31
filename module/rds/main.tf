@@ -17,15 +17,15 @@ resource "aws_db_instance" "db_instance" {
   kms_key_id               = var.kms_key_id
 }
 resource "aws_db_parameter_group" "parameter_group" {
-  name   = "${var.component}-${var.env}-pg"
+  name   = "${var.component}-rds-${var.env}-pg"
   family = var.family
 }
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name       = "${var.component}-${var.env}-sg"
+  name       = "${var.component}-rds-${var.env}-sg"
   subnet_ids = var.subnet_id
 
   tags = {
-    Name = "${var.component}-${var.env}-sg"
+    Name = "${var.component}-rds-${var.env}-sg"
   }
 }
 
