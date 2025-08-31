@@ -36,7 +36,7 @@ resource "aws_security_group" "sg" {
    ingress {
       from_port        =     3306
       to_port          =     3306
-      protocol         =    "tcp"
+      protocol         =    "-1"
       cidr_blocks      =    var.server_app_ports
      }
    egress {
