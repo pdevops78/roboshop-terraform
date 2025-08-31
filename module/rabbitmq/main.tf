@@ -17,7 +17,7 @@ resource "aws_instance" "component" {
     volume_type  = var.volume_type
   }
   tags = {
-    Name = "${var.component}-${var.env}"
+    Name = "${var.component}-rabbitmq-${var.env}"
   }
 }
 resource "null_resource" "rabbitmq-setup" {
@@ -63,7 +63,7 @@ resource "aws_security_group" "sg" {
     cidr_blocks      =    ["0.0.0.0/0"]
   }
   tags = {
-    Name = "${var.env}-sg"
+    Name = "${var.component}-rabbitmq-${var.env}"
   }
 }
 

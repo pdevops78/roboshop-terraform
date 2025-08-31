@@ -37,3 +37,13 @@ redis:  redis-dev.orvmwx.0001.use1.cache.amazonaws.com:6379
 rds: mysql-dev.cvkemucwmc9p.us-east-1.rds.amazonaws.com
 
 redis-dev.orvmwx.0001.use1.cache.amazonaws.com:6379
+
+
+=============================================================================================
+no need to remove entire state file which resource required to update
+terraform state rm aws_security_group.dev_sg
+terraform import aws_security_group.dev_rds_sg sg-xxxxxxxx(replace with existing sg)
+terraform plan
+or 
+we can rename directly
+terraform state mv aws_security_group.dev_sg aws_security_group.dev_rds_sg

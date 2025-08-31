@@ -43,7 +43,7 @@ resource "aws_security_group" "sg" {
     cidr_blocks      =    ["0.0.0.0/0"]
   }
   tags = {
-    Name = "${var.env}-sg"
+    Name = "${var.app_components[count.index]}-${var.env}"
   }
 }
 
