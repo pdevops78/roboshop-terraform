@@ -46,7 +46,7 @@ resource "aws_security_group" "sg" {
       cidr_blocks      =    ["0.0.0.0/0"]
      }
   tags = {
-     Name = "${var.env}-rds-sg"
+     Name = "${var.component}-rds-${var.env}-sg"
    }
 }
 
