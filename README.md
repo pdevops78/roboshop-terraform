@@ -23,6 +23,7 @@ mongodb://docdb:roboshop123@mongodb:27017/catalogue?tls=true&replicaSet=rs0&read
 Download the Amazon DocumentDB Certificate Authority (CA) certificate required to authenticate to your cluster
 ==============================================================================================================
 wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+/app/rds-combined-ca-bundle.pem
 
 Connect to this cluster with the mongo shell
 ==============================================
