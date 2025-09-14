@@ -1,10 +1,10 @@
 rds = {
   main = {
     db_name              =  "mysql"
-    instance_class       =  "db.m5.large"
+    instance_class       =  "db.t3.micro"
     allocated_storage    =  20
-    engine               =  "MySQL"
-    engine_version       =  "5.7.44"
+    engine               =  "mysql"
+    engine_version       =  "5.7"
     family               =  "mysql5.7"
   }
 }

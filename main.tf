@@ -15,8 +15,8 @@ module "docdb" {
   engine_version     =    each.value["engine_version"]
   family             =    each.value["family"]
   instance_class      =   each.value["instance_class"]
-  subnet_ids          =    module.VPC.backend
-  server_app_ports   =    var.dbServers
+  subnet_ids          =    module.VPC.db
+  server_app_ports   =    var.backendServers
   env                =    each.value["env"]
   docdb_username     =    "docdb"
   docdb_password     =    "roboshop123"
@@ -35,8 +35,8 @@ module "rds" {
   family                = each.value["family"]
   instance_class        = each.value["instance_class"]
   kms_key_id            = var.kms_key_id
-  server_app_ports      = var.dbServers
-  subnet_id             = module.VPC.backend
+  server_app_ports      = var.backendServers
+  subnet_id             = module.VPC.db
   vpc_id                = module.VPC.vpc_id
   multi_az              = false
   publicly_accessible   = false
